@@ -1,0 +1,40 @@
+// predicates
+*DSCandRel(mention,relation)
+
+//syntax
+*DependencyPathLength(mention)
+*HasDirectDependency(mention)
+*HasSimilarEntityVerbs(mention)
+
+//similarity
+*SimilarVerb(mention,mention)
+*SimilarDepenPath(mention,mention)
+*SimilarDepenStructure(mention,mention)
+
+//context
+*HasWordsShortDependPath(mention,words)
+
+//entity model
+*Ent1TypeSt(mention,cat)
+*Ent2TypeSt(mention,cat)
+*Ent1TypeSp(mention,cat)
+*Ent2TypeSp(mention,cat)
+*Ent1Capital(mention)
+*Ent2Capital(mention)
+
+//query
+Ent1Type(mention,cat)
+Ent2Type(mention,cat)
+Similar(mention,mention)
+HasRel(mention,relation)
+
+//Syntax rules
+2 !DSCandRel(a1,a2) v DSCandRel(a1,"None") v !HasDirectDependency(a1) v HasRel(a1,a2)
+2 !DSCandRel(a1,a2) v DSCandRel(a1,"None") v !HasSimilarEntityVerbs(a1) v HasRel(a1,a2)
+2 !DSCandRel(a1,a2) v DSCandRel(a1,"None") v !DependencyPathLength(a1) v HasRel(a1,a2)
+1 !DSCandRel(a1,a2) v HasSimilarEntityVerbs(a1) v HasRel(a1,"None")
+1 !DSCandRel(a1,a2) v DependencyPathLength(a1) v HasRel(a1,"None")
+1 !DSCandRel(a1,a2) v HasDirectDependency(a1) v HasRel(a1,"None")
+
+1 !DSCandRel(a3,a4) v HasRel(a3,a4)
+1 !HasRel(a1,a2)
