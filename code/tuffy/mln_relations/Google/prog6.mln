@@ -1,0 +1,43 @@
+// predicates
+*DSCandRel(mention,relation)
+
+//syntax
+*DependencyPathLength(mention)
+*HasDirectDependency(mention)
+*HasSimilarEntityVerbs(mention)
+
+//similarity
+*SimilarVerb(mention,mention)
+*SimilarDepenPath(mention,mention)
+*SimilarDepenStructure(mention,mention)
+
+//context
+*HasWordsShortDependPath(mention,words)
+
+//entity model
+*Ent1TypeSt(mention,cat)
+*Ent2TypeSt(mention,cat)
+*Ent1TypeSp(mention,cat)
+*Ent2TypeSp(mention,cat)
+*Ent1Capital(mention)
+*Ent2Capital(mention)
+
+//query
+Ent1Type(mention,cat)
+Ent2Type(mention,cat)
+Similar(mention,mention)
+HasRel(mention,relation)
+
+//Semantic rules
+6 !DSCandRel(z,"per1place_of_death") v Ent1Type(z,"PERSON") v !HasRel(z,"per1place_of_death")
+6 !DSCandRel(z,"per1place_of_death") v Ent2Type(z,"LOCATION") v !HasRel(z,"per1place_of_death")
+6 !DSCandRel(z,"per1place_of_birth") v Ent1Type(z,"PERSON") v !HasRel(z,"per1place_of_birth")
+6 !DSCandRel(z,"per1place_of_birth") v Ent2Type(z,"LOCATION") v !HasRel(z,"per1place_of_birth")
+6 !DSCandRel(z,"per1degree") v Ent1Type(z,"PERSON") v !HasRel(z,"per1degree")
+6 !DSCandRel(z,"per1degree") v Ent2Type(z,"ORGANIZATION") v !HasRel(z,"per1degree")
+6 !DSCandRel(z,"per1institution") v Ent1Type(z,"PERSON") v !HasRel(z,"per1institution")
+6 !DSCandRel(z,"per1institution") v Ent2Type(z,"ORGANIZATION") v !HasRel(z,"per1institution")
+
+
+1 !DSCandRel(a3,a4) v HasRel(a3,a4)
+1 !HasRel(a1,a2)

@@ -1,0 +1,52 @@
+// predicates
+*DSCandRel(mention,relation)
+
+//syntax
+*DependencyPathLength(mention)
+*HasDirectDependency(mention)
+*HasSimilarEntityVerbs(mention)
+
+//similarity
+*SimilarVerb(mention,mention)
+*SimilarDepenPath(mention,mention)
+*SimilarDepenStructure(mention,mention)
+
+//context
+*HasWordsShortDependPath(mention,words)
+
+//entity model
+*Ent1TypeSt(mention,cat)
+*Ent2TypeSt(mention,cat)
+*Ent1TypeSp(mention,cat)
+*Ent2TypeSp(mention,cat)
+*Ent1Capital(mention)
+*Ent2Capital(mention)
+
+//query
+Ent1Type(mention,cat)
+Ent2Type(mention,cat)
+Similar(mention,mention)
+HasRel(mention,relation)
+ 
+
+//Entity rules
+6  !Ent1TypeSp(a1,a2) v Ent1Type(a1,a2)
+6  !Ent2TypeSp(a1,a2) v Ent2Type(a1,a2)
+ 
+// Context rules prediction
+20 !HasWordsShortDependPath(z,"death_words") v !Ent1Type(z,"PERSON") v !Ent2Type(z,"LOCATION") v HasRel(z,"per1place_of_death")
+20 !HasWordsShortDependPath(z,"birth_words") v !Ent1Type(z,"PERSON") v !Ent2Type(z,"LOCATION") v HasRel(z,"per1place_of_birth")
+10 !HasWordsShortDependPath(z,"lived_words") v !Ent1Type(z,"PERSON") v !Ent2Type(z,"LOCATION") v HasRel(z,"per1place_lived")
+10 !HasWordsShortDependPath(z,"children_words") v !Ent1Type(z,"PERSON") v !Ent2Type(z,"PERSON") v HasRel(z,"per1children")
+20 !HasWordsShortDependPath(z,"founders_words") v !Ent1Type(z,"PERSON") v !Ent2Type(z,"ORGANIZATION") v HasRel(z,"per1founders")
+5 !HasWordsShortDependPath(z,"company_words") v !Ent1Type(z,"PERSON") v !Ent2Type(z,"ORGANIZATION") v HasRel(z,"per1company")
+
+// Context rules false positive reduce
+4 !DSCandRel(z,"per1place_of_birth") v HasWordsShortDependPath(z,"birth_words") v HasRel(z,"None")
+4 !DSCandRel(z,"per1place_of_death") v HasWordsShortDependPath(z,"death_words") v HasRel(z,"None")
+4 !DSCandRel(z,"per1place_lived") v HasWordsShortDependPath(z,"lived_words") v HasRel(z,"None")
+4 !DSCandRel(z,"per1founders") v HasWordsShortDependPath(z,"founders_words") v HasRel(z,"None")
+
+
+1 !DSCandRel(a3,a4) v HasRel(a3,a4)
+1 !HasRel(a1,a2)
